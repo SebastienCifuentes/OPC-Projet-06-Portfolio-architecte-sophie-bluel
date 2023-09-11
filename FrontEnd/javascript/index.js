@@ -27,3 +27,23 @@ function displayWorks(works) {
         worksElement.appendChild(titleElement);
     }
 }
+
+
+//Récupération des catégories depuis l'API : fetch GET
+fetch("http://localhost:5678/api/categories")
+    .then((response) => response.json())
+    .then((categories) => displayCategory(categories))
+    .catch((error) => {
+        alert(`Erreur: ` + error);
+});
+
+function displayCategory(categories) {
+    // Récupération de la section du Dom pour insérer les filtres
+    const sectionFilters = document.querySelector(".filters");
+    
+    //Création du bouton "Tous"
+    const buttonAll = document.createElement("button");
+    buttonAll.textContent = "Tous";
+    buttonAll.classList.add("btnFilter");
+    sectionFilters.appendChild(buttonAll);
+}
