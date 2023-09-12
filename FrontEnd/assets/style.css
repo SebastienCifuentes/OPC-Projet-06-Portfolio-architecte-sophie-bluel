@@ -149,6 +149,10 @@ li:hover {
 	white-space: nowrap;
 }
 
+.btnFilter:hover {
+	cursor: pointer;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
