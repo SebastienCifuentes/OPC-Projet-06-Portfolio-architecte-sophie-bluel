@@ -127,14 +127,15 @@ li:hover {
 }
 
 .filters {
-	width: 100%;
+	width: 585px;
 	display: flex;
 	margin: auto;
+	gap: 10px;
 }
 
 .btnFilter {
 	height: 37px;
-	width: 100px;
+	width: 100%;
 	border: solid 1px #1d6154;
 	border-radius: 60px;
 	font-family: "Syne";

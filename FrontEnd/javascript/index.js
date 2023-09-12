@@ -46,4 +46,19 @@ function displayCategory(categories) {
     buttonAll.textContent = "Tous";
     buttonAll.classList.add("btnFilter");
     sectionFilters.appendChild(buttonAll);
+    //Création du bouton "Objets"
+    const buttonObjects = document.createElement("button");
+    buttonObjects.textContent = "Objets";
+    buttonObjects.classList.add("btnFilter");
+    sectionFilters.appendChild(buttonObjects);
+    //Création du bouton "Appartements"
+    const buttonAppartements = document.createElement("button");
+    buttonAppartements.textContent = "Appartements";
+    buttonAppartements.classList.add("btnFilter");
+    sectionFilters.appendChild(buttonAppartements);
+    //Création du bouton "Hôtel & restaurants"
+    const buttonHotelrestos = document.createElement("button");
+    buttonHotelrestos.textContent = "Hôtels & restaurants";
+    buttonHotelrestos.classList.add("btnFilter");
+    sectionFilters.appendChild(buttonHotelrestos);
 }
