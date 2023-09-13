@@ -6,7 +6,6 @@ fetch('http://localhost:5678/api/works')
   .then((data) => {
     works = data;
     displayWorks(works);
-    console.log(works);
   })
   .catch((error) => {
     alert(`Erreur: ` + error);
@@ -51,11 +50,18 @@ function displayCategory(categories) {
   buttonAll.textContent = 'Tous';
   buttonAll.classList.add('btnFilter');
   sectionFilters.appendChild(buttonAll);
+  buttonAll.addEventListener("click", function() {
+    console.log("Tous");
+  })
 
   for (const element of categories) {
     const buttonCategory = document.createElement('button');
     buttonCategory.textContent = element.name;
     buttonCategory.classList.add('btnFilter');
     sectionFilters.appendChild(buttonCategory);
+    buttonCategory.addEventListener("click", function() {
+      console.log(element.name);
+    })
   }
 }
+
