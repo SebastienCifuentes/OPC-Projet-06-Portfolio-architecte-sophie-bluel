@@ -1,4 +1,5 @@
 let works;
+let filteredWorks;
 
 //Récupération des travaux depuis l'API : fetch GET
 fetch('http://localhost:5678/api/works')
@@ -12,6 +13,8 @@ fetch('http://localhost:5678/api/works')
   });
 
 function displayWorks(works) {
+  document.querySelector('.gallery').innerHTML = '';
+
   for (let i = 0; i < works.length; i++) {
     const worksIndex = works[i];
     // Récupération de la section du Dom pour afficher la galerie
@@ -45,23 +48,34 @@ function displayCategory(categories) {
   // Récupération de la section du Dom pour insérer les filtres
   const sectionFilters = document.querySelector('.filters');
 
-  //Création du button "Tous", puis des button category 
+  //Création du button "Tous", puis des button category
   const buttonAll = document.createElement('button');
   buttonAll.textContent = 'Tous';
+  buttonAll.setAttribute('data-id', 0);
   buttonAll.classList.add('btnFilter');
+  buttonAll.classList.add('active');
   sectionFilters.appendChild(buttonAll);
-  buttonAll.addEventListener("click", function() {
-    console.log("Tous");
-  })
 
   for (const element of categories) {
     const buttonCategory = document.createElement('button');
     buttonCategory.textContent = element.name;
+    buttonCategory.setAttribute('data-id', element.id);
     buttonCategory.classList.add('btnFilter');
     sectionFilters.appendChild(buttonCategory);
-    buttonCategory.addEventListener("click", function() {
-      console.log(element.name);
-    })
   }
-}
 
+  document.querySelectorAll(".btnFilter").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      document.querySelector(".active").classList.remove("active")
+      e.target.classList.add("active")
+
+      filteredWorks = works.filter(el => el.categoryId == btn.getAttribute("data-id"))
+
+      if(filteredWorks.length != 0) {
+        displayWorks(filteredWorks)
+      } else {
+        displayWorks(works)
+      }
+    })
+  })
+}
