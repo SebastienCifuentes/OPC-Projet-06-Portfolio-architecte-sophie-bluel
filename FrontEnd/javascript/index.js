@@ -62,22 +62,22 @@ function displayCategory(categories) {
     buttonCategory.setAttribute('data-id', element.id);
     buttonCategory.classList.add('btnFilter');
     sectionFilters.appendChild(buttonCategory);
-  }
 
-  document.querySelectorAll('.btnFilter').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      document.querySelector('.active').classList.remove('active');
-      e.target.classList.add('active');
+    document.querySelectorAll('.btnFilter').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        document.querySelector('.active').classList.remove('active');
+        e.target.classList.add('active');
 
-      filteredWorks = works.filter(
-        (el) => el.categoryId == btn.getAttribute('data-id')
-      );
+        filteredWorks = works.filter(
+          (el) => el.categoryId == btn.getAttribute('data-id')
+        );
 
-      if (filteredWorks.length != 0) {
-        displayWorks(filteredWorks);
-      } else {
-        displayWorks(works);
-      }
+        if (filteredWorks.length !== 0) {
+          displayWorks(filteredWorks);
+        } else {
+          displayWorks(works);
+        }
+      });
     });
-  });
+  }
 }

@@ -10,7 +10,6 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/login.css">
-	<script src="./javascript/login.js" defer></script>
 </head>
 <body>
 <header>
@@ -28,10 +27,10 @@
 	<section id="login">
 		<h2>Log In</h2>
 		<form action="#" method="post">
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
+			<label for="email">E-mail</label>
 			<input type="email" name="email" id="email">
+			<label for="password" name="password" id="password">Mot de passe</label>
+			<input type="password" name="password" id="password">
 			<input type="submit" value="Se connecter">
 			<a href="#" id="forget-password">Mot de passe oublié</a>
 		</form>
@@ -45,5 +44,6 @@
 		</ul>
 	</nav>
 </footer>
+<script type="module" src="./javascript/login.js"></script>
 </body>
 </html>
