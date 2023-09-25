@@ -22,13 +22,10 @@
 	font-size: 14px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
 }
 #login label {
 	margin: 2em 0 1em 0;
-}
-#login textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 #forget-password {

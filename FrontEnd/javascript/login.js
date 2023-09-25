@@ -3,6 +3,8 @@ console.log(form);
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  FormData = new FormData(form);
+  console.log(FormData);
   //form data
   //recuperer les valeurs des input
   //envoyer avec fetch (http) avec post
