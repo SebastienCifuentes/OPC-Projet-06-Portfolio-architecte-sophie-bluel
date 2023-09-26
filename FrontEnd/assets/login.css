@@ -39,3 +39,14 @@
     text-align: center;
     padding-bottom: 355px;
 }
+
+.errorMessage {
+	text-align: center;
+	padding-top: 20px;
+	font-size: 15px;
+	color: red;
+}
+
+.hidden {
+	display: none;
+}
