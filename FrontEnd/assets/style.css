@@ -60,7 +60,7 @@ header {
 	margin: 50px 0
 }
 section {
-	margin: 50px 0
+	margin: 50px 0 139px 0
 }
 
 h1{
@@ -139,7 +139,7 @@ nav img {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 51px;
 }
 
 .filters {
@@ -159,7 +159,7 @@ nav img {
 	font-size: 16px;
 	color: #1d6154;
 	background-color: #FFFEF8;
-	margin: 2em auto;
+	margin: 0 auto 51px auto;
 	padding: 5px 20px;
 	text-align: center;
 	white-space: nowrap;
