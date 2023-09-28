@@ -7,7 +7,7 @@ if (token) {
   document.querySelector('.blackBarAdmin').classList.remove('hidden');
   document.querySelector('.filters').classList.add('hidden');
   // On ajouter le bouton Modifier et modifie la margin du titre Mes Projets
-  document.querySelector('.openModale').classList.remove('hidden');
+  document.querySelector('.modal-btn').classList.remove('hidden');
   const titleProject = document.querySelector('.portfolioTitleLogged');
   titleProject.style.marginBottom = '92px';
 

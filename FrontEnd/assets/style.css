@@ -149,13 +149,20 @@ nav img {
 	margin-bottom: 51px;
 }
 
-.openModale {
+.modal-btn {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	gap: 10px;
 	color: black;
 	font-size: 14px;
-	text-decoration: none;
+	border: none;
+	background-color: transparent;
+}
+
+.modal-btn:hover {
+	cursor: pointer;
+	color: #B1663C;
 }
 
 .filters {
