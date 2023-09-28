@@ -1,5 +1,4 @@
 const form = document.querySelector('form');
-console.log(form);
 
 let formData;
 
@@ -7,44 +6,45 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   formData = new FormData(form);
   // on ajoute l'email et le mdp dans le formData
-  formData.append('email', document.querySelector('input[type=email]').value)
-  formData.append('password', document.querySelector('input[type=password]').value)
+  formData.append('email', document.querySelector('input[type=email]').value);
+  formData.append(
+    'password',
+    document.querySelector('input[type=password]').value
+  );
 
-  // on créé un objet login avec l'email et le mdp 
+  // on créé un objet login avec l'email et le mdp
   const login = {
-    email : formData.getAll('email')[0],
-    password : formData.getAll('password')[0]
-  }
+    email: formData.getAll('email')[0],
+    password: formData.getAll('password')[0],
+  };
 
-  postLogin(login)
+  postLogin(login); // Appel de la fonction qui gère le POST
 
-  //const reponse = await fetch('http://localhost:5678/api/users/login')
   
-  //form data
-  //recuperer les valeurs des input
-  //envoyer avec fetch (http) avec post
-  //Si reponse ok 200 : stocker token dans le localStorage
-  //Si erreur 403 : Afficher message d'erreur
 });
 
 async function postLogin(login) {
-  console.log(login)
+  try { // on essaye le post
+    let reponse = await fetch('http://localhost:5678/api/users/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(login),
+    });
 
-  await fetch("http://localhost:5678/api/users/login", {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json; charset=UTF-8'
-    },
-    body: JSON.stringify(login)
-  }).then((rep) => {
-    if(rep.ok) {
-      console.log(rep.json()) 
+    let resultat = await reponse.json();
+    let statusRequete = reponse.status;
+
+    if (statusRequete === 200) { // Si status reponse 200 (ok), alors on stock le token et redirection homepage
+      localStorage.setItem('token', resultat.token);
+      window.location = './index.html';
+    } else { // Sinon message d'erreur
+      document.querySelector('.errorMessage').classList.remove('hidden');
     }
-  })
-
-  //let repText = await rep.json()
-  //console.log(repText)
-  //console.log(rep)
-  
+  } catch (error) {
+    console.log(error);
+  }
 }
+
