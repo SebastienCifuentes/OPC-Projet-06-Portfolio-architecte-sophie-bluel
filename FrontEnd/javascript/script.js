@@ -3,10 +3,12 @@ const token = localStorage.getItem('token');
 
 // Si token stocké, donc login ok
 if (token) {
-  // On joute la barre admin, on enlève les filtres et modifie la margin du titre Mes Projets
+  // On joute la barre admin, on enlève les filtres
   document.querySelector('.blackBarAdmin').classList.remove('hidden');
   document.querySelector('.filters').classList.add('hidden');
-  const titleProject = document.querySelector('#portfolio h2');
+  // On ajouter le bouton Modifier et modifie la margin du titre Mes Projets
+  document.querySelector('.openModale').classList.remove('hidden');
+  const titleProject = document.querySelector('.portfolioTitleLogged');
   titleProject.style.marginBottom = '92px';
 
   // On modifie la valeur du bouton login en logout

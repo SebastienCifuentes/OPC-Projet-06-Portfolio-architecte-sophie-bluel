@@ -139,7 +139,23 @@ nav img {
 }
 #portfolio h2 {
 	text-align: center;
+}
+
+.portfolioTitleLogged {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 31px;
 	margin-bottom: 51px;
+}
+
+.openModale {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	color: black;
+	font-size: 14px;
+	text-decoration: none;
 }
 
 .filters {
