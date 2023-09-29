@@ -15,6 +15,16 @@ if (token) {
   const loginBtn = document.querySelector('.loginLogout');
   loginBtn.innerHTML = 'logout';
 
+  // On dynamise la fermeture de la modale
+  const modalContainer = document.querySelector('.modal-container');
+  const modalTriggers = document.querySelectorAll('.modal-trigger');
+
+  modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
+
+  function toggleModal() {
+    modalContainer.classList.toggle('active');
+  }
+
   // Au clic sur logout on se délog (enlève le token) et on revient sur la page index
   loginBtn.href = '#';
   loginBtn.addEventListener('click', (event) => {
