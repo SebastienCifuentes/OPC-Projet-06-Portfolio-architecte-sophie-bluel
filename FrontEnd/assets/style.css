@@ -236,6 +236,27 @@ nav img {
 	margin-top: 15px;
 }
 
+.addPhotoButton {
+	display: flex;
+	height: 36px;
+	width: 237px;
+	border: solid 1px #1d6154;
+	font-family: "Syne";
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin-top: 45px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 60px;
+	position: absolute;
+	bottom: 45px;
+	left: 50%;
+	transform: translate(-50%, 0%);
+}
+
 .filters {
 	width: 585px;
 	display: flex;
