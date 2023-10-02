@@ -200,7 +200,7 @@ nav img {
 	max-width: 585px;
 	min-width: 300px;
 	max-height: 643px;
-	padding: 45px;
+	padding: 22px;
 	background: #fff;
 	border-radius: 10px;
 	position: absolute;
@@ -233,7 +233,7 @@ nav img {
 	font-size: 26px;
 	font-weight: 400;
 	color: #000;
-	margin-top: 15px;
+	margin-top: 38px;
 }
 
 .thumbnailsModal {
@@ -241,14 +241,14 @@ nav img {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	margin: 46px 60px 0px 60px;
-	padding-bottom: 67px;
-	gap: 6px;
+	padding-bottom: 42px;
 	border-bottom: solid 1px #B3B3B3;
 }
 
 .thumbnailsModal img {
 	width: 78px;
 	height: 104px;
+	margin-bottom: 25px;
 }
 
 .addPhotoButton {
@@ -261,7 +261,7 @@ nav img {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin-top: 45px;
+	
 	justify-content: center;
 	align-items: center;
 	text-align: center;
