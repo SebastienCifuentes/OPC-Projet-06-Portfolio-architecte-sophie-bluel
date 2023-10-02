@@ -48,7 +48,7 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 1440px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -57,10 +57,10 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 150px
 }
 section {
-	margin: 50px 0 139px 0
+	margin: 139px 0 139px 0
 }
 
 h1{
@@ -234,6 +234,21 @@ nav img {
 	font-weight: 400;
 	color: #000;
 	margin-top: 15px;
+}
+
+.thumbnailsModal {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 46px 60px 0px 60px;
+	padding-bottom: 67px;
+	gap: 6px;
+	border-bottom: solid 1px #B3B3B3;
+}
+
+.thumbnailsModal img {
+	width: 78px;
+	height: 104px;
 }
 
 .addPhotoButton {

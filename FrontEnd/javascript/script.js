@@ -23,6 +23,44 @@ if (token) {
 
   function toggleModal() {
     modalContainer.classList.toggle('active');
+
+    let works;
+
+    //Récupération des travaux depuis l'API : fetch GET
+    fetch('http://localhost:5678/api/works')
+      .then((response) => response.json())
+      .then((data) => {
+        works = data;
+        displayWorks(works);
+      })
+      .catch((error) => {
+        alert(`Erreur: ` + error);
+      });
+
+      function displayWorks(works) {
+        document.querySelector('.thumbnailsModal').innerHTML = '';
+      
+        for (let i = 0; i < works.length; i++) {
+          const worksIndex = works[i];
+          // Récupération de la section du Dom pour afficher la galerie
+          const sectionGallery = document.querySelector('.thumbnailsModal');
+          // Création de la balise figure qui affichera les travaux
+          const worksElement = document.createElement('figure');
+          // Création des balises interne qui affichera images
+          const imageElement = document.createElement('img');
+          imageElement.src = worksIndex.imageUrl;
+
+          const trash = document.createElement("i");
+          trash.setAttribute("class", "fa-solid fa-trash-can");
+          trash.setAttribute("id", "trash");
+
+          // Rattachement de la balise figure à la section gallery
+          sectionGallery.appendChild(worksElement);
+          // Rattachement des balises img à la balise figure
+          worksElement.appendChild(imageElement);
+          imageElement.appendChild(trash);
+        }
+      }
   }
 
   // Au clic sur logout on se délog (enlève le token) et on revient sur la page index
