@@ -52,7 +52,7 @@ if (token) {
           imageElement.src = worksIndex.imageUrl;
 
           const trash = document.createElement("i");
-          trash.setAttribute("class", "fa-solid fa-trash-can trash");
+          trash.setAttribute("class", "fa-solid fa-trash-can fa-xs trash");
           trash.setAttribute("data-id", worksIndex.id);
           worksElement.appendChild(trash);
           // Rattachement de la balise figure à la section gallery
@@ -76,7 +76,6 @@ if (token) {
                 console.log(works)
               }
           })
-          
         }
       }
   }

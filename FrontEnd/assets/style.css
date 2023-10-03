@@ -251,6 +251,26 @@ nav img {
 	margin-bottom: 25px;
 }
 
+.thumbnailsModal figure {
+	position: relative;
+}
+
+.thumbnailsModal i {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	background-color: #000;
+	border-radius: 2px;
+	padding: 3px 4px;
+	width: 9px;
+	height: 11px;
+	top: 6px;
+	right: 6px;
+	cursor: pointer;
+}
+
 .addPhotoButton {
 	display: flex;
 	height: 36px;
@@ -261,7 +281,7 @@ nav img {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	
+	cursor: pointer;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
