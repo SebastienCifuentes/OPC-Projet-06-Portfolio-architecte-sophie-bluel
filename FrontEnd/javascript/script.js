@@ -46,19 +46,37 @@ if (token) {
           const sectionGallery = document.querySelector('.thumbnailsModal');
           // Création de la balise figure qui affichera les travaux
           const worksElement = document.createElement('figure');
+          worksElement.setAttribute("id", worksIndex.id);
           // Création des balises interne qui affichera images
           const imageElement = document.createElement('img');
           imageElement.src = worksIndex.imageUrl;
 
           const trash = document.createElement("i");
-          trash.setAttribute("class", "fa-solid fa-trash-can");
-          trash.setAttribute("id", "trash");
-
+          trash.setAttribute("class", "fa-solid fa-trash-can trash");
+          trash.setAttribute("data-id", worksIndex.id);
+          worksElement.appendChild(trash);
           // Rattachement de la balise figure à la section gallery
           sectionGallery.appendChild(worksElement);
           // Rattachement des balises img à la balise figure
           worksElement.appendChild(imageElement);
-          imageElement.appendChild(trash);
+
+          
+          trash.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(trash.getAttribute("data-id"));
+            
+              let reponse = fetch(`http://localhost:5678/api/works/${trash.getAttribute("data-id")}`,
+              {method:"delete",
+              headers: {
+                Authorization: `Bearer ${token}`
+              },})
+              if(reponse.ok) {
+                const updatedThumbnails = works.filter(work => work.id != trash.getAttribute("data-id"))
+                console.log(updatedThumbnails)
+                console.log(works)
+              }
+          })
+          
         }
       }
   }
