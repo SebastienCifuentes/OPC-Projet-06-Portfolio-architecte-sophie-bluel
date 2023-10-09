@@ -217,6 +217,12 @@ nav img {
 	transform 0.4s 0.2s ease-out;
 }
 
+.back-modal {
+	border: none;
+	font-size: 24px;
+	background: transparent;
+}
+
 .close-modal {
 	border: none;
 	font-size: 24px;
@@ -239,6 +245,7 @@ nav img {
 .thumbnailsModal {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: flex-start;
 	margin: 46px 60px 0px 60px;
 	padding-bottom: 42px;
 	border-bottom: solid 1px #B3B3B3;
@@ -255,7 +262,7 @@ nav img {
 	position: relative;
 }
 
-.thumbnailsModal i {
+/* .thumbnailsModal i {
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -269,7 +276,7 @@ nav img {
 	top: 6px;
 	right: 6px;
 	cursor: pointer;
-}
+} */
 
 .addPhotoButton {
 	display: flex;
@@ -279,8 +286,6 @@ nav img {
 	font-family: "Syne";
 	font-size: 14px;
 	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
 	cursor: pointer;
 	justify-content: center;
 	align-items: center;
@@ -290,6 +295,12 @@ nav img {
 	bottom: 45px;
 	left: 50%;
 	transform: translate(-50%, 0%);
+}
+
+.addPhotoContainer {
+	width: 50px;
+	height: 50px;
+	background-color: #B1663C;
 }
 
 .filters {
@@ -319,9 +330,15 @@ nav img {
 	cursor: pointer;
 }
 
-.actived {
+.activated {
 	background-color: #1D6154;
 	color: white;
+}
+
+.disabled {
+	background-color: #A7A7A7;
+	color: white;
+	border: none;
 }
 
 .gallery {

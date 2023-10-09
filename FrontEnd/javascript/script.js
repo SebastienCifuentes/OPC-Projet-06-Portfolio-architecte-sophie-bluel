@@ -23,33 +23,47 @@ if (token) {
 
   function displayWorks(works) {
     document.querySelector('.thumbnailsModal').innerHTML = '';
+    const modalTitle = document.querySelector('.modalTitle');
+    modalTitle.innerHTML = 'Galerie Photo';
+    addPhotoButton.innerHTML = 'Ajouter une photo';
+    addPhotoButton.classList.remove('disabled');
+    addPhotoButton.classList.add('activated');
+    backModalButton.classList.add('hidden');
 
     for (let i = 0; i < works.length; i++) {
       const worksIndex = works[i];
       // Récupération de la section du Dom pour afficher la galerie
       const sectionGallery = document.querySelector('.thumbnailsModal');
+      // Création Form pour les travaux
+      const formElement = document.createElement('form');
       // Création de la balise figure qui affichera les travaux
       const worksElement = document.createElement('figure');
       worksElement.setAttribute('id', worksIndex.id);
       // Création des balises interne qui affichera images
       const imageElement = document.createElement('img');
       imageElement.src = worksIndex.imageUrl;
-
+      // Création du boutton trash submit
+      const trashButton = document.createElement('button');
+      trashButton.setAttribute('type', 'submit');
+      trashButton.setAttribute('data-id', worksIndex.id);
       const trash = document.createElement('i');
       trash.setAttribute('class', 'fa-solid fa-trash-can fa-xs trash');
-      trash.setAttribute('data-id', worksIndex.id);
-      worksElement.appendChild(trash);
+      trashButton.appendChild(trash);
       // Rattachement de la balise figure à la section gallery
-      sectionGallery.appendChild(worksElement);
+      sectionGallery.appendChild(formElement);
+      // Rattachement du Form à la figure
+      formElement.appendChild(worksElement);
       // Rattachement des balises img à la balise figure
       worksElement.appendChild(imageElement);
+      // Rattachement du boutton au form
+      worksElement.appendChild(trashButton);
 
-      trash.addEventListener('click', (e) => {
+      formElement.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(trash.getAttribute('data-id'));
+        console.log(trashButton.getAttribute('data-id'));
 
         let reponse = fetch(
-          `http://localhost:5678/api/works/${trash.getAttribute('data-id')}`,
+          `http://localhost:5678/api/works/${trashButton.getAttribute('data-id')}`,
           {
             method: 'delete',
             headers: {
@@ -59,11 +73,27 @@ if (token) {
         );
         if (reponse.ok) {
           const updatedThumbnails = works.filter(
-            (work) => work.id != trash.getAttribute('data-id')
+            (work) => work.id != trashButton.getAttribute('data-id')
           );
         }
       });
     }
+  }
+
+  const addPhotoButton = document.querySelector('.addPhotoButton');
+  const backModalButton = document.querySelector('.back-modal');
+  addPhotoButton.addEventListener('click', () => {
+    switchModal2();
+  });
+  function switchModal2() {
+    document.querySelector('.thumbnailsModal').innerHTML = '';
+    const modalTitle = document.querySelector('.modalTitle');
+    modalTitle.innerHTML = 'Ajout Photo';
+    addPhotoButton.innerHTML = 'Valider';
+    addPhotoButton.classList.add('disabled');
+    addPhotoButton.classList.remove('activated');
+    backModalButton.classList.remove('hidden');
+    
   }
 
   const toggleModal = () => {
