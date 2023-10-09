@@ -19,9 +19,54 @@ if (token) {
   const modalContainer = document.querySelector('.modal-container');
   const modalTriggers = document.querySelectorAll('.modal-trigger');
 
-  modalTriggers.forEach(trigger => trigger.addEventListener('click', toggleModal));
+  
 
-  function toggleModal() {
+  function displayWorks(works) {
+    document.querySelector('.thumbnailsModal').innerHTML = '';
+
+    for (let i = 0; i < works.length; i++) {
+      const worksIndex = works[i];
+      // Récupération de la section du Dom pour afficher la galerie
+      const sectionGallery = document.querySelector('.thumbnailsModal');
+      // Création de la balise figure qui affichera les travaux
+      const worksElement = document.createElement('figure');
+      worksElement.setAttribute('id', worksIndex.id);
+      // Création des balises interne qui affichera images
+      const imageElement = document.createElement('img');
+      imageElement.src = worksIndex.imageUrl;
+
+      const trash = document.createElement('i');
+      trash.setAttribute('class', 'fa-solid fa-trash-can fa-xs trash');
+      trash.setAttribute('data-id', worksIndex.id);
+      worksElement.appendChild(trash);
+      // Rattachement de la balise figure à la section gallery
+      sectionGallery.appendChild(worksElement);
+      // Rattachement des balises img à la balise figure
+      worksElement.appendChild(imageElement);
+
+      trash.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(trash.getAttribute('data-id'));
+
+        let reponse = fetch(
+          `http://localhost:5678/api/works/${trash.getAttribute('data-id')}`,
+          {
+            method: 'delete',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (reponse.ok) {
+          const updatedThumbnails = works.filter(
+            (work) => work.id != trash.getAttribute('data-id')
+          );
+        }
+      });
+    }
+  }
+
+  const toggleModal = () => {
     modalContainer.classList.toggle('active');
 
     let works;
@@ -36,49 +81,11 @@ if (token) {
       .catch((error) => {
         alert(`Erreur: ` + error);
       });
+  };
 
-      function displayWorks(works) {
-        document.querySelector('.thumbnailsModal').innerHTML = '';
-      
-        for (let i = 0; i < works.length; i++) {
-          const worksIndex = works[i];
-          // Récupération de la section du Dom pour afficher la galerie
-          const sectionGallery = document.querySelector('.thumbnailsModal');
-          // Création de la balise figure qui affichera les travaux
-          const worksElement = document.createElement('figure');
-          worksElement.setAttribute("id", worksIndex.id);
-          // Création des balises interne qui affichera images
-          const imageElement = document.createElement('img');
-          imageElement.src = worksIndex.imageUrl;
-
-          const trash = document.createElement("i");
-          trash.setAttribute("class", "fa-solid fa-trash-can fa-xs trash");
-          trash.setAttribute("data-id", worksIndex.id);
-          worksElement.appendChild(trash);
-          // Rattachement de la balise figure à la section gallery
-          sectionGallery.appendChild(worksElement);
-          // Rattachement des balises img à la balise figure
-          worksElement.appendChild(imageElement);
-
-          
-          trash.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log(trash.getAttribute("data-id"));
-            
-              let reponse = fetch(`http://localhost:5678/api/works/${trash.getAttribute("data-id")}`,
-              {method:"delete",
-              headers: {
-                Authorization: `Bearer ${token}`
-              },})
-              if(reponse.ok) {
-                const updatedThumbnails = works.filter(work => work.id != trash.getAttribute("data-id"))
-                console.log(updatedThumbnails)
-                console.log(works)
-              }
-          })
-        }
-      }
-  }
+  modalTriggers.forEach((trigger) =>
+    trigger.addEventListener('click', toggleModal)
+  );
 
   // Au clic sur logout on se délog (enlève le token) et on revient sur la page index
   loginBtn.href = '#';
