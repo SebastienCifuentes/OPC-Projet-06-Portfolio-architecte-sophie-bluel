@@ -92,6 +92,7 @@ if (token) {
     addPhotoButton.innerHTML = 'Valider';
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
+    
     backModalButton.classList.remove('hidden');
     
   }
