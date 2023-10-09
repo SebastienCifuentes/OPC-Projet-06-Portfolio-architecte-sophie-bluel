@@ -80,21 +80,20 @@ if (token) {
     }
   }
 
+  const thumbnailsModal = document.querySelector('.thumbnailsModal');
   const addPhotoButton = document.querySelector('.addPhotoButton');
   const backModalButton = document.querySelector('.back-modal');
   addPhotoButton.addEventListener('click', () => {
     switchModal2();
   });
   function switchModal2() {
-    document.querySelector('.thumbnailsModal').innerHTML = '';
+    thumbnailsModal.classList.add('hidden');
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Ajout Photo';
     addPhotoButton.innerHTML = 'Valider';
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
-    
     backModalButton.classList.remove('hidden');
-    
   }
 
   const toggleModal = () => {

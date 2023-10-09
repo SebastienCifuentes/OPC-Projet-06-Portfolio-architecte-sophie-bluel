@@ -291,6 +291,13 @@ nav img {
 	height: 11px;
 }
 
+.ButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 38px;
+}
+
 .addPhotoButton {
 	display: flex;
 	height: 36px;
@@ -304,10 +311,6 @@ nav img {
 	align-items: center;
 	text-align: center;
 	border-radius: 60px;
-	position: absolute;
-	bottom: 45px;
-	left: 50%;
-	transform: translate(-50%, 0%);
 }
 
 .addPhotoContainer {
@@ -423,6 +426,7 @@ input[type="submit"]{
 
 .hidden {
 	display: none;
+	visibility: hidden;
 }
 
 footer nav ul {
