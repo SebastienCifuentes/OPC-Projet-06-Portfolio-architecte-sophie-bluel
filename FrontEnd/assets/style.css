@@ -342,12 +342,55 @@ nav img {
 .addPhotoBlock i {
 	font-size: 76px;
 	color: #B9C5CC;
+	margin-top: 13px;
 }
 
 .addPhotoBlock p {
 	font-size: 10px;
 	color: #444;
+	margin-bottom: 19px;
 }
+
+#title {
+	padding-left: 16px;
+}
+
+#categories {
+	padding-left: 16px;
+}
+
+.addPhotoLabel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #CBD6DC;
+	color: #306685;
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	margin: 6px 0 7px 0;
+}
+
+.titleLabel {
+	margin: 30px 0 10px 0;
+}
+
+.categoriesLabel {
+	margin: 21px 0 10px 0;
+}
+
+.hiddenInput {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+input.hiddenInput:is(:focus, :focus-within) + label {
+	outline: thin dotted;
+}
+
 
 .filters {
 	width: 585px;
@@ -482,8 +525,4 @@ footer nav ul {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
-}
-
-.form label {
-	margin: 30px 0 10px 0;
 }
