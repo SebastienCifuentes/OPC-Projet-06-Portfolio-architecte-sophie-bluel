@@ -3,6 +3,7 @@ const token = localStorage.getItem('token');
 
 // Si token stocké, donc login ok
 if (token) {
+  let works;
   // On joute la barre admin, on enlève les filtres
   document.querySelector('.blackBarAdmin').classList.remove('hidden');
   document.querySelector('.filters').classList.add('hidden');
@@ -22,13 +23,18 @@ if (token) {
   
 
   function displayWorks(works) {
-    document.querySelector('.thumbnailsModal').innerHTML = '';
+    const thumbnailsModal = document.querySelector('.thumbnailsModal');
+    const formModalTwo = document.querySelector('.formModalTwo');
+    thumbnailsModal.innerHTML = '';
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Galerie Photo';
     addPhotoButton.innerHTML = 'Ajouter une photo';
     addPhotoButton.classList.remove('disabled');
     addPhotoButton.classList.add('activated');
     backModalButton.classList.add('hidden');
+    thumbnailsModal.classList.remove('hidden');
+    formModalTwo.classList.add('hidden');
+
 
     for (let i = 0; i < works.length; i++) {
       const worksIndex = works[i];
@@ -81,6 +87,7 @@ if (token) {
   }
 
   const thumbnailsModal = document.querySelector('.thumbnailsModal');
+  const formModalTwo = document.querySelector('.formModalTwo');
   const addPhotoButton = document.querySelector('.addPhotoButton');
   const backModalButton = document.querySelector('.back-modal');
   addPhotoButton.addEventListener('click', () => {
@@ -88,18 +95,22 @@ if (token) {
   });
   function switchModal2() {
     thumbnailsModal.classList.add('hidden');
+    formModalTwo.classList.remove('hidden');
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Ajout Photo';
     addPhotoButton.innerHTML = 'Valider';
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
     backModalButton.classList.remove('hidden');
+    
   }
+
+  backModalButton.addEventListener('click', () => {
+    displayWorks(works);
+  });
 
   const toggleModal = () => {
     modalContainer.classList.toggle('active');
-
-    let works;
 
     //Récupération des travaux depuis l'API : fetch GET
     fetch('http://localhost:5678/api/works')
