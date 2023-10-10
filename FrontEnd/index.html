@@ -27,8 +27,21 @@
 			<h1 class="modalTitle">Galerie photo</h1>
 			<div class="thumbnailsModal"></div>
 			<div class="formModalTwo hidden">
-				<form action="#" method="post">
-					<h1>TEST</h1>
+				<form class="form" action="#" method="post">
+					<div class="addPhotoBlock">
+						<i class="fa-regular fa-image"></i>
+						<div class="addPhotoBtn">
+							<label for="addFile">+ Ajouter photo</label>
+							<input type="file" name="File" id="File" accept=".jpg, .png">
+						</div>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="title">
+					<label for="categories">Catégorie</label>
+					<select name="categories" id="categories">
+						<option value="object"></option>
+					</select>
 				</form>
 			</div>
 			<div class="ButtonContainer">

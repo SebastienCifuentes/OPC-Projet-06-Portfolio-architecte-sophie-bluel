@@ -93,7 +93,7 @@ if (token) {
   addPhotoButton.addEventListener('click', () => {
     switchModal2();
   });
-  function switchModal2() {
+  async function switchModal2() {
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
     const modalTitle = document.querySelector('.modalTitle');
@@ -102,7 +102,25 @@ if (token) {
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
     backModalButton.classList.remove('hidden');
-    
+
+    const categories = document.querySelector('#categories');
+    const allCategories = await getCategories();
+    for (const element of allCategories) {
+      const categoriesOption = document.createElement('option');
+      categoriesOption.textContent = element.name;
+      categories.appendChild(categoriesOption);
+    }
+  }
+
+  async function getCategories() {
+    let allCategories;
+    await fetch('http://localhost:5678/api/categories')
+    .then((response) => response.json())
+    .then((categories) => allCategories = categories)
+    .catch((error) => {
+      alert(`Erreur: ` + error);
+    });
+    return allCategories
   }
 
   backModalButton.addEventListener('click', () => {
