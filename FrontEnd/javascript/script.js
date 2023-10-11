@@ -1,6 +1,17 @@
 // On récupère le token
 const token = localStorage.getItem('token');
 
+async function getCategories() {
+  let allCategories;
+  await fetch('http://localhost:5678/api/categories')
+  .then((response) => response.json())
+  .then((categories) => allCategories = categories)
+  .catch((error) => {
+    alert(`Erreur: ` + error);
+  });
+  return allCategories
+}
+
 // Si token stocké, donc login ok
 if (token) {
   let works;
@@ -67,7 +78,7 @@ if (token) {
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
         console.log(trashButton.getAttribute('data-id'));
-
+        console.log(token);
         let reponse = fetch(
           `http://localhost:5678/api/works/${trashButton.getAttribute('data-id')}`,
           {
@@ -93,6 +104,15 @@ if (token) {
   addPhotoButton.addEventListener('click', () => {
     switchModal2();
   });
+
+  const categories = document.querySelector('#categories');
+    const allCategories = await getCategories();
+    for (const element of allCategories) {
+      const categoriesOption = document.createElement('option');
+      categoriesOption.textContent = element.name;
+      categories.appendChild(categoriesOption);
+    }
+
   async function switchModal2() {
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
@@ -102,26 +122,8 @@ if (token) {
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
     backModalButton.classList.remove('hidden');
-
-    const categories = document.querySelector('#categories');
-    const allCategories = await getCategories();
-    for (const element of allCategories) {
-      const categoriesOption = document.createElement('option');
-      categoriesOption.textContent = element.name;
-      categories.appendChild(categoriesOption);
-    }
   }
 
-  async function getCategories() {
-    let allCategories;
-    await fetch('http://localhost:5678/api/categories')
-    .then((response) => response.json())
-    .then((categories) => allCategories = categories)
-    .catch((error) => {
-      alert(`Erreur: ` + error);
-    });
-    return allCategories
-  }
 
   backModalButton.addEventListener('click', () => {
     displayWorks(works);
