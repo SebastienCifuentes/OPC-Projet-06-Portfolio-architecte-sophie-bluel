@@ -4,12 +4,12 @@ const token = localStorage.getItem('token');
 async function getCategories() {
   let allCategories;
   await fetch('http://localhost:5678/api/categories')
-  .then((response) => response.json())
-  .then((categories) => allCategories = categories)
-  .catch((error) => {
-    alert(`Erreur: ` + error);
-  });
-  return allCategories
+    .then((response) => response.json())
+    .then((categories) => (allCategories = categories))
+    .catch((error) => {
+      alert(`Erreur: ` + error);
+    });
+  return allCategories;
 }
 
 // Si token stocké, donc login ok
@@ -32,8 +32,6 @@ if (token) {
   const modalContainer = document.querySelector('.modal-container');
   const modalTriggers = document.querySelectorAll('.modal-trigger');
 
-  
-
   function displayThumbnails(works) {
     const thumbnailsModal = document.querySelector('.thumbnailsModal');
     const formModalTwo = document.querySelector('.formModalTwo');
@@ -46,7 +44,6 @@ if (token) {
     backModalButton.classList.add('hidden');
     thumbnailsModal.classList.remove('hidden');
     formModalTwo.classList.add('hidden');
-
 
     for (let i = 0; i < works.length; i++) {
       const worksIndex = works[i];
@@ -79,7 +76,9 @@ if (token) {
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
         fetch(
-          `http://localhost:5678/api/works/${trashButton.getAttribute('data-id')}`,
+          `http://localhost:5678/api/works/${trashButton.getAttribute(
+            'data-id'
+          )}`,
           {
             method: 'delete',
             headers: {
@@ -107,8 +106,6 @@ if (token) {
     switchModal2();
   });
 
-  
-
   async function switchModal2() {
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
@@ -118,17 +115,40 @@ if (token) {
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
     backModalButton.classList.remove('hidden');
+    document.querySelector('#title').value = '';
     const categories = document.querySelector('#categories');
-    categories.innerHTML = "";
+    categories.innerHTML = '';
     const allCategories = await getCategories();
-    categories.appendChild(document.createElement('option'))
+    categories.appendChild(document.createElement('option'));
     for (const element of allCategories) {
       const categoriesOption = document.createElement('option');
       categoriesOption.textContent = element.name;
       categories.appendChild(categoriesOption);
     }
+    const photoMini = document.querySelector('.photoMini');
+    if (photoMini) {
+      document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
+      photoMini.remove();
+    }
   }
 
+  function showImageMini(input) {
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    const addPhotoBlock = document.querySelector('.addPhotoBlock');
+    document.querySelector('.addPhotoBlockBis').classList.add('hidden');
+    const photoMini = document.createElement('div');
+    photoMini.classList.add('photoMini');
+    addPhotoBlock.appendChild(photoMini);
+    const imgMini = document.createElement('img');
+    photoMini.appendChild(imgMini);
+
+    reader.onload = function () {
+      imgMini.src = reader.result;
+    };
+  }
 
   backModalButton.addEventListener('click', () => {
     if (updatedThumbnails) {

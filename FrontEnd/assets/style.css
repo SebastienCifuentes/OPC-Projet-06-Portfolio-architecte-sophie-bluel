@@ -407,6 +407,14 @@ input.hiddenInput:is(:focus, :focus-within) + label {
 	outline: thin dotted;
 }
 
+.photoMini {
+	display: flex;
+	justify-content: center;
+}
+
+.photoMini img {
+	height: 170px;
+}
 
 .filters {
 	width: 585px;
