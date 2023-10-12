@@ -15,6 +15,7 @@ async function getCategories() {
 // Si token stocké, donc login ok
 if (token) {
   let works;
+  let updatedThumbnails;
   // On joute la barre admin, on enlève les filtres
   document.querySelector('.blackBarAdmin').classList.remove('hidden');
   document.querySelector('.filters').classList.add('hidden');
@@ -33,7 +34,7 @@ if (token) {
 
   
 
-  function displayWorks(works) {
+  function displayThumbnails(works) {
     const thumbnailsModal = document.querySelector('.thumbnailsModal');
     const formModalTwo = document.querySelector('.formModalTwo');
     thumbnailsModal.innerHTML = '';
@@ -77,9 +78,7 @@ if (token) {
 
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(trashButton.getAttribute('data-id'));
-        console.log(token);
-        let reponse = fetch(
+        fetch(
           `http://localhost:5678/api/works/${trashButton.getAttribute('data-id')}`,
           {
             method: 'delete',
@@ -87,12 +86,15 @@ if (token) {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
-        if (reponse.ok) {
-          const updatedThumbnails = works.filter(
-            (work) => work.id != trashButton.getAttribute('data-id')
-          );
-        }
+        ).then((res) => {
+          if (res.status) {
+            updatedThumbnails = works.filter(
+              (work) => work.id != trashButton.getAttribute('data-id')
+            );
+            displayThumbnails(updatedThumbnails);
+            displayWorks(updatedThumbnails);
+          }
+        });
       });
     }
   }
@@ -105,13 +107,7 @@ if (token) {
     switchModal2();
   });
 
-  const categories = document.querySelector('#categories');
-    const allCategories = await getCategories();
-    for (const element of allCategories) {
-      const categoriesOption = document.createElement('option');
-      categoriesOption.textContent = element.name;
-      categories.appendChild(categoriesOption);
-    }
+  
 
   async function switchModal2() {
     thumbnailsModal.classList.add('hidden');
@@ -122,11 +118,24 @@ if (token) {
     addPhotoButton.classList.add('disabled');
     addPhotoButton.classList.remove('activated');
     backModalButton.classList.remove('hidden');
+    const categories = document.querySelector('#categories');
+    categories.innerHTML = "";
+    const allCategories = await getCategories();
+    categories.appendChild(document.createElement('option'))
+    for (const element of allCategories) {
+      const categoriesOption = document.createElement('option');
+      categoriesOption.textContent = element.name;
+      categories.appendChild(categoriesOption);
+    }
   }
 
 
   backModalButton.addEventListener('click', () => {
-    displayWorks(works);
+    if (updatedThumbnails) {
+      displayThumbnails(updatedThumbnails);
+    } else {
+      displayThumbnails(works);
+    }
   });
 
   const toggleModal = () => {
@@ -137,7 +146,7 @@ if (token) {
       .then((response) => response.json())
       .then((data) => {
         works = data;
-        displayWorks(works);
+        displayThumbnails(works);
       })
       .catch((error) => {
         alert(`Erreur: ` + error);

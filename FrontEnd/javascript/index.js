@@ -53,7 +53,7 @@ function displayCategory(categories) {
   buttonAll.textContent = 'Tous';
   buttonAll.setAttribute('data-id', 0);
   buttonAll.classList.add('btnFilter');
-  buttonAll.classList.add('actived');
+  buttonAll.classList.add('activated');
   sectionFilters.appendChild(buttonAll);
 
   for (const element of categories) {
@@ -65,8 +65,8 @@ function displayCategory(categories) {
 
     document.querySelectorAll('.btnFilter').forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        document.querySelector('.actived').classList.remove('actived');
-        e.target.classList.add('actived');
+        document.querySelector('.activated').classList.remove('activated');
+        e.target.classList.add('activated');
 
         filteredWorks = works.filter(
           (el) => el.categoryId == btn.getAttribute('data-id')
