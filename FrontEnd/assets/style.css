@@ -540,7 +540,6 @@ footer nav ul {
 	justify-content: center;
 	width: 420px;
 	padding-bottom: 47px;
-	border-bottom: solid 1px #B3B3B3;
 }
 
 .form input, .form select {
@@ -549,4 +548,36 @@ footer nav ul {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
+}
+
+.errorMessageImg, .errorMessageTitle, .errorMessageCategory  {
+	text-align: center;
+	padding-top: 10px;
+	font-size: 15px;
+	color: red;
+}
+
+.ButtonValidation {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border-top: solid 1px #B3B3B3;
+	padding-top: 21px;
+}
+
+.ButtonValidation button {
+	width: 237px;
+	height: 36px;
+	border: solid 1px #1d6154;
+	font-family: "Syne";
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 60px;
+}
+
+.form select {
+	margin-bottom: 47px;
 }

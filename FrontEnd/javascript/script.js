@@ -149,8 +149,18 @@ if (token) {
     let categoryId = document.getElementById("categories").value;
 
     let validation = true;
-    if (imageSrc == undefined || title == "" || categoryId == "") {
-      alert("Veuillez remplir tous les champs")
+    if (imageSrc == undefined) {
+      document.querySelector('.errorMessageImg').classList.remove('hidden');
+      validation = false;
+    }
+
+    if (title == "") {
+      document.querySelector('.errorMessageTitle').classList.remove('hidden');
+      validation = false;
+    }
+
+    if (categoryId == "") {
+      document.querySelector('.errorMessageCategory').classList.remove('hidden');
       validation = false;
     }
 
