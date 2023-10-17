@@ -130,6 +130,61 @@ if (token) {
       document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
       photoMini.remove();
     }
+
+    //ssssssssssssssssssssssssssssss
+
+    const worksForm = document.querySelector('.form');
+
+    worksForm.addEventListener('submit',async function addNewProject(e){
+      e.preventDefault();
+      const formData= new FormData();
+      let imageUrl = document.getElementById("File").files[0];
+      console.log(imageUrl);
+      let title = document.getElementById("title").value;
+      console.log(title);
+      let categoryId = document.getElementById("categories").value;
+      console.log(categoryId);
+
+      let validation = true;
+      if(imageUrl == undefined){
+        alert("Veuillez choisir un image")
+        validation = false;
+      }
+      if(title == ""){
+        alert("Veuillez choisir un titre")
+        validation = false;
+      }
+      if(categoryId == ""){
+        alert("Veuillez choisir une categorie")
+        validation = false;
+      }
+
+      formData.append("categories",categoryId);
+      formData.append("title",title);
+      formData.append("File",imageUrl);
+
+      if (validation){
+        const token = localStorage.getItem("token");
+        const response = await fetch('http://localhost:5678/api/works', {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            //"Content-type":"multipart/form-data"
+          },
+          body: formData
+        })
+        /* if (response.status == 201){
+          closeModal();
+          alert("projet ajouté avec succès");
+        }
+        else{
+          alert("alerte,impossible d'ajouter ce projet");
+          return;
+        } */}
+    }
+    );
+
+    //ssssssssssssssssssssssssssssssssssssssss
   }
 
   function showImageMini(input) {
