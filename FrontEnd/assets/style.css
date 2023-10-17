@@ -465,7 +465,7 @@ input.hiddenInput:is(:focus, :focus-within) + label {
 
 .gallery img {
 	width: 100%;
-
+	max-height: 622px;
 }
 #contact {
 	width: 50%;

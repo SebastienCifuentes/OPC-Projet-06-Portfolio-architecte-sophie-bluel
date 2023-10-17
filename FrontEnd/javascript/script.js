@@ -123,6 +123,7 @@ if (token) {
     for (const element of allCategories) {
       const categoriesOption = document.createElement('option');
       categoriesOption.textContent = element.name;
+      categoriesOption.setAttribute('value', element.id);
       categories.appendChild(categoriesOption);
     }
     const photoMini = document.querySelector('.photoMini');
@@ -134,57 +135,58 @@ if (token) {
     //ssssssssssssssssssssssssssssss
 
     const worksForm = document.querySelector('.form');
+    worksForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      addNewProject()
+    })
 
-    worksForm.addEventListener('submit',async function addNewProject(e){
-      e.preventDefault();
-      const formData= new FormData();
-      let imageUrl = document.getElementById("File").files[0];
-      console.log(imageUrl);
-      let title = document.getElementById("title").value;
-      console.log(title);
-      let categoryId = document.getElementById("categories").value;
-      console.log(categoryId);
+    //sssssssssssssssssssssssssssss
+  }
 
-      let validation = true;
-      if(imageUrl == undefined){
-        alert("Veuillez choisir un image")
-        validation = false;
-      }
-      if(title == ""){
-        alert("Veuillez choisir un titre")
-        validation = false;
-      }
-      if(categoryId == ""){
-        alert("Veuillez choisir une categorie")
-        validation = false;
-      }
+  async function addNewProject() {
+    let imageSrc = document.getElementById("File").files[0];
+    let title = document.getElementById("title").value;
+    let categoryId = document.getElementById("categories").value;
 
-      formData.append("categories",categoryId);
-      formData.append("title",title);
-      formData.append("File",imageUrl);
+    let validation = true;
+    if (imageSrc == undefined || title == "" || categoryId == "") {
+      alert("Veuillez remplir tous les champs")
+      validation = false;
+    }
 
-      if (validation){
+    try {
+      let formData = new FormData()
+      formData.append("image", imageSrc);
+      formData.append("title", title);
+      formData.append("category", categoryId);
+
+
+      console.log(formData.get("title"))
+      console.log(formData.get("category"))
+      console.log(formData.get("image"))
+
+      if (validation) {
         const token = localStorage.getItem("token");
         const response = await fetch('http://localhost:5678/api/works', {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            //"Content-type":"multipart/form-data"
           },
           body: formData
         })
-        /* if (response.status == 201){
-          closeModal();
-          alert("projet ajouté avec succès");
+        if (response.status == 201) {
+          toggleModal();
+          alert("Projet ajouté avec succès");
         }
-        else{
-          alert("alerte,impossible d'ajouter ce projet");
+        else {
+          alert("Alerte, impossible d'ajouter ce projet");
           return;
-        } */}
+        }
+      }
+    } catch (error) {
+      console.log(error)
     }
-    );
 
-    //ssssssssssssssssssssssssssssssssssssssss
   }
 
   function showImageMini(input) {
