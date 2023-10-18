@@ -106,8 +106,6 @@ if (token) {
   });
 
   async function switchModal2() {
-    document.querySelector('.errorMessageImg').classList.add('hidden');
-    document.querySelector('.errorMessageTitle').classList.add('hidden');
     document.querySelector('.errorMessageCategory').classList.add('hidden');
     const errorCatMargin = document.querySelector('.form select');
     errorCatMargin.style.marginBottom = '63px';
@@ -153,26 +151,12 @@ if (token) {
     let categoryId = document.getElementById("categories").value;
 
     let validation = true;
-    if (imageSrc == undefined) {
-      document.querySelector('.errorMessageImg').classList.remove('hidden');
-      const errorPhotoMargin = document.querySelector('.titleLabel');
-      errorPhotoMargin.style.marginTop = '5px';
-      validation = false;
-    }
-
-    if (title == "") {
-      document.querySelector('.errorMessageTitle').classList.remove('hidden');
-      const errorTitleMargin = document.querySelector('.categoriesLabel');
-      errorTitleMargin.style.marginTop = '5px';
-      validation = false;
-    }
-
-    if (categoryId == "") {
+    if (imageSrc == undefined || title == "" || categoryId == "") {
       document.querySelector('.errorMessageCategory').classList.remove('hidden');
       const errorCatMargin = document.querySelector('.form select');
       errorCatMargin.style.marginBottom = '2px';
       const errorMessageCat = document.querySelector('.errorMessageCategory');
-      errorMessageCat.style.paddingBottom = '36px';
+      errorMessageCat.style.paddingBottom = '23px';
       validation = false;
     }
 
@@ -198,7 +182,7 @@ if (token) {
         })
         if (response.status == 201) {
           toggleModal();
-          alert("Projet ajouté avec succès");
+          alert("Projet ajouté avec succès !");
           return;
         }
         else {

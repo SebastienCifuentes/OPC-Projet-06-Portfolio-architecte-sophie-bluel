@@ -470,7 +470,8 @@ input.hiddenInput:is(:focus, :focus-within) + label {
 
 .gallery img {
 	width: 100%;
-	max-height: 622px;
+	max-height: 405px;
+	max-width: 304px;
 }
 #contact {
 	margin: 0 530px;
@@ -560,7 +561,7 @@ footer nav ul {
 
 .errorMessageImg, .errorMessageTitle, .errorMessageCategory  {
 	text-align: center;
-	padding-top: 10px;
+	padding-top: 23px;
 	font-size: 15px;
 	color: red;
 }
@@ -591,3 +592,4 @@ footer nav ul {
 .form select {
 	margin-bottom: 63px;
 }
+
