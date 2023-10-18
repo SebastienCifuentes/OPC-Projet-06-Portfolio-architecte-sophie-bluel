@@ -141,16 +141,13 @@ if (token) {
 
     //ssssssssssssssssssssssssssssss
 
-    const worksForm = document.querySelector('.form');
-    worksForm.addEventListener('submit', (e) => {
-      e.preventDefault()
-      addNewProject()
-    })
+    
 
     //sssssssssssssssssssssssssssss
   }
 
   async function addNewProject() {
+
     let imageSrc = document.getElementById("File").files[0];
     let title = document.getElementById("title").value;
     let categoryId = document.getElementById("categories").value;
@@ -212,8 +209,13 @@ if (token) {
     } catch (error) {
       console.log(error)
     }
-
   }
+
+  const worksForm = document.querySelector('#testForm');
+    worksForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      addNewProject()
+    })
 
   function showImageMini(input) {
     let file = input.files[0];
