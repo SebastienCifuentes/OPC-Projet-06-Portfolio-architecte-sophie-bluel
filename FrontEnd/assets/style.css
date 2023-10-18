@@ -60,7 +60,7 @@ header {
 	margin: 50px 150px
 }
 section {
-	margin: 139px 0 139px 0
+	margin: 139px 245px 57px 245px;
 }
 
 h1{
@@ -117,6 +117,9 @@ nav img {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin: 0 245px;
+	gap: 72px;
+	padding-top: 42px;
 }
 #introduction figure {
 	flex: 1
@@ -124,19 +127,21 @@ nav img {
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%;
 }
 
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
-	margin-bottom: 1em;
+	margin-bottom: 19px;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 20px;
+	color: #3D3D3D;
 }
+
 #portfolio h2 {
 	text-align: center;
 }
@@ -468,8 +473,8 @@ input.hiddenInput:is(:focus, :focus-within) + label {
 	max-height: 622px;
 }
 #contact {
-	width: 50%;
-	margin: auto;
+	margin: 0 530px;
+
 }
 #contact > * {
 	text-align: center;
@@ -480,19 +485,18 @@ input.hiddenInput:is(:focus, :focus-within) + label {
 }
 #contact form {
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
 #contact input {
-	height: 36px;
+	height: 51px;
 	font-size: 14px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label {
-	margin: 2em 0 1em 0;
+	margin: 40px 0 10px 0;
 }
 #contact textarea {
 	border: none;
@@ -504,7 +508,7 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 40px 100px 45px 100px ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
@@ -529,7 +533,11 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+}
+
+.footer {
+	background-color: white;
+	padding: 25px 100px;
 }
 
 .form {
