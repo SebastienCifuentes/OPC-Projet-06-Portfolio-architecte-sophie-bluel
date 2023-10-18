@@ -109,6 +109,12 @@ if (token) {
     document.querySelector('.errorMessageImg').classList.add('hidden');
     document.querySelector('.errorMessageTitle').classList.add('hidden');
     document.querySelector('.errorMessageCategory').classList.add('hidden');
+    const errorCatMargin = document.querySelector('.form select');
+    errorCatMargin.style.marginBottom = '63px';
+    const errorPhotoMargin = document.querySelector('.titleLabel');
+    errorPhotoMargin.style.marginTop = '30px';
+    const errorTitleMargin = document.querySelector('.categoriesLabel');
+    errorTitleMargin.style.marginTop = '30px';
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
     const modalTitle = document.querySelector('.modalTitle');
@@ -152,16 +158,24 @@ if (token) {
     let validation = true;
     if (imageSrc == undefined) {
       document.querySelector('.errorMessageImg').classList.remove('hidden');
+      const errorPhotoMargin = document.querySelector('.titleLabel');
+      errorPhotoMargin.style.marginTop = '5px';
       validation = false;
     }
 
     if (title == "") {
       document.querySelector('.errorMessageTitle').classList.remove('hidden');
+      const errorTitleMargin = document.querySelector('.categoriesLabel');
+      errorTitleMargin.style.marginTop = '5px';
       validation = false;
     }
 
     if (categoryId == "") {
       document.querySelector('.errorMessageCategory').classList.remove('hidden');
+      const errorCatMargin = document.querySelector('.form select');
+      errorCatMargin.style.marginBottom = '2px';
+      const errorMessageCat = document.querySelector('.errorMessageCategory');
+      errorMessageCat.style.paddingBottom = '36px';
       validation = false;
     }
 
