@@ -14,7 +14,6 @@ async function getCategories() {
 
 // Si token stocké, donc login ok
 if (token) {
-  let works;
   let updatedThumbnails;
   // On joute la barre admin, on enlève les filtres
   document.querySelector('.blackBarAdmin').classList.remove('hidden');
@@ -38,9 +37,9 @@ if (token) {
     thumbnailsModal.innerHTML = '';
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Galerie Photo';
-    addPhotoButton.innerHTML = 'Ajouter une photo';
-    addPhotoButton.classList.remove('disabled');
-    addPhotoButton.classList.add('activated');
+    
+    addPhotoButton.classList.remove('hidden');
+    
     backModalButton.classList.add('hidden');
     thumbnailsModal.classList.remove('hidden');
     formModalTwo.classList.add('hidden');
@@ -107,13 +106,15 @@ if (token) {
   });
 
   async function switchModal2() {
+    document.querySelector('.errorMessageImg').classList.add('hidden');
+    document.querySelector('.errorMessageTitle').classList.add('hidden');
+    document.querySelector('.errorMessageCategory').classList.add('hidden');
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Ajout Photo';
-    addPhotoButton.innerHTML = 'Valider';
-    addPhotoButton.classList.add('disabled');
-    addPhotoButton.classList.remove('activated');
+    
+    addPhotoButton.classList.add('hidden');
     backModalButton.classList.remove('hidden');
     document.querySelector('#title').value = '';
     const categories = document.querySelector('#categories');
@@ -187,6 +188,7 @@ if (token) {
         if (response.status == 201) {
           toggleModal();
           alert("Projet ajouté avec succès");
+          return;
         }
         else {
           alert("Alerte, impossible d'ajouter ce projet");
@@ -227,18 +229,24 @@ if (token) {
 
   const toggleModal = () => {
     modalContainer.classList.toggle('active');
+    getWorks();
 
     //Récupération des travaux depuis l'API : fetch GET
+  };
+
+  const getWorks = () => {
+    let works;
     fetch('http://localhost:5678/api/works')
       .then((response) => response.json())
       .then((data) => {
         works = data;
         displayThumbnails(works);
+        displayWorks(works);
       })
       .catch((error) => {
         alert(`Erreur: ` + error);
       });
-  };
+  }
 
   modalTriggers.forEach((trigger) =>
     trigger.addEventListener('click', toggleModal)
