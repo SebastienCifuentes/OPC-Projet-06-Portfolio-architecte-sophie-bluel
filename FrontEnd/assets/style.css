@@ -171,7 +171,6 @@ nav img {
 }
 
 .modal-container {
-	/* display: none; */
 	visibility: hidden;
 	position: fixed;
 	top: 0;
@@ -181,7 +180,6 @@ nav img {
 	transition: visibility 0.4s;
 }
 .modal-container.active {
-	/* display: block; */
 	visibility: visible;
 }
 
@@ -305,7 +303,7 @@ nav img {
 	padding-top: 38px;
 }
 
-.addPhotoButton {
+.addWorksButton {
 	display: flex;
 	height: 36px;
 	width: 237px;
@@ -531,16 +529,6 @@ input[type="submit"]{
 	display: none;
 }
 
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-}
-
-.footer {
-	background-color: white;
-	padding: 25px 100px;
-}
-
 .form {
 	text-align: left;
 	padding-top:36px;
@@ -593,3 +581,12 @@ footer nav ul {
 	margin-bottom: 63px;
 }
 
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.footer {
+	background-color: white;
+	padding: 25px 100px;
+}

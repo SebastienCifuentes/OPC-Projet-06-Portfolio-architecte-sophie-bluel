@@ -38,7 +38,7 @@ if (token) {
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Galerie Photo';
     
-    addPhotoButton.classList.remove('hidden');
+    addWorksButton.classList.remove('hidden');
     
     backModalButton.classList.add('hidden');
     thumbnailsModal.classList.remove('hidden');
@@ -99,9 +99,9 @@ if (token) {
 
   const thumbnailsModal = document.querySelector('.thumbnailsModal');
   const formModalTwo = document.querySelector('.formModalTwo');
-  const addPhotoButton = document.querySelector('.addPhotoButton');
+  const addWorksButton = document.querySelector('.addWorksButton');
   const backModalButton = document.querySelector('.back-modal');
-  addPhotoButton.addEventListener('click', () => {
+  addWorksButton.addEventListener('click', () => {
     switchModal2();
   });
 
@@ -118,7 +118,7 @@ if (token) {
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Ajout Photo';
     
-    addPhotoButton.classList.add('hidden');
+    addWorksButton.classList.add('hidden');
     backModalButton.classList.remove('hidden');
     document.querySelector('#title').value = '';
     const categories = document.querySelector('#categories');
