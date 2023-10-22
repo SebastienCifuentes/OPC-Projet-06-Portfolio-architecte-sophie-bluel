@@ -198,7 +198,11 @@ if (token) {
       validation = false;
     } else if (imageSrc.size > 4194304) {
       alert("Veuillez choisir une photo de 4mo max");
-      switchModal2();
+      const photoMini = document.querySelector('.photoMini');
+      if (photoMini) {
+        document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
+        photoMini.remove();
+      }
       imageSrcInput.value = "";
       validation = false;
     }
@@ -225,7 +229,8 @@ if (token) {
           body: formData
         })
         if (response.status == 201) {
-          toggleModal();
+          /* toggleModal(); */
+          getWorks();
           alert("Projet ajouté avec succès !");
           return;
         }
