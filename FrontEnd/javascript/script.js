@@ -114,7 +114,7 @@ if (token) {
     titleInput.value = "";
 
     checkInputChanges();
-    console.log("switchModal2");
+    
     document.querySelector('.errorMessageCategory').classList.add('hidden');
     const errorCatMargin = document.querySelector('.form select');
     errorCatMargin.style.marginBottom = '63px';
@@ -146,8 +146,6 @@ if (token) {
       photoMini.remove();
     }
 
-    
-
     imageSrcInput.addEventListener("change", checkInputChanges);
     titleInput.addEventListener("change", checkInputChanges);
     categoryIdInput.addEventListener("change", checkInputChanges);
@@ -155,7 +153,7 @@ if (token) {
 
   // Vérif champs remplis ?
   function checkInputChanges() {
-    console.log("checkInputChanges de TA CHATTE")
+    
     let imageSrcInput = document.getElementById("File");
     let titleInput = document.getElementById("title");
     let categoryIdInput = document.getElementById("categories");
@@ -165,9 +163,7 @@ if (token) {
     let categoryId = categoryIdInput.value;
     let btnValider = document.getElementById("btnValider");
 
-    console.log(imageSrc);
-    console.log(title);
-    console.log(categoryId);
+    
 
     if (imageSrc !== undefined && title !== "" && categoryId !== "") {
       btnValider.style.backgroundColor = "#1D6154";
@@ -200,7 +196,15 @@ if (token) {
       const errorMessageCat = document.querySelector('.errorMessageCategory');
       errorMessageCat.style.paddingBottom = '23px';
       validation = false;
+    } else if (imageSrc.size > 4194304) {
+      alert("Veuillez choisir une photo de 4mo max");
+      switchModal2();
+      imageSrcInput.value = "";
+      validation = false;
     }
+
+    console.log(imageSrc)
+    
 
     checkInputChanges();
 
@@ -263,11 +267,7 @@ if (token) {
   }
 
   backModalButton.addEventListener('click', () => {
-    if (updatedThumbnails) {
-      displayThumbnails(updatedThumbnails);
-    } else {
-      displayThumbnails(works);
-    }
+    getWorks();
   });
 
   const toggleModal = () => {
