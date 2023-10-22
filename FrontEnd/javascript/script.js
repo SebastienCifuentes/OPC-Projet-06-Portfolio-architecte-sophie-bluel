@@ -146,11 +146,16 @@ if (token) {
 
   async function addNewProject() {
 
-    let imageSrc = document.getElementById("File").files[0];
-    let title = document.getElementById("title").value;
-    let categoryId = document.getElementById("categories").value;
-
+    let imageSrcInput = document.getElementById("File");
+    let titleInput = document.getElementById("title");
+    let categoryIdInput = document.getElementById("categories");
+    let btnValider = document.getElementById("btnValider");
+    
     let validation = true;
+    let imageSrc = imageSrcInput.files[0];
+    let title = titleInput.value;
+    let categoryId = categoryIdInput.value;
+
     if (imageSrc == undefined || title == "" || categoryId == "") {
       document.querySelector('.errorMessageCategory').classList.remove('hidden');
       const errorCatMargin = document.querySelector('.form select');
@@ -159,6 +164,28 @@ if (token) {
       errorMessageCat.style.paddingBottom = '23px';
       validation = false;
     }
+
+    // Vérif champs remplis ?
+    function checkInputChanges() {
+      let imageSrc = imageSrcInput.files[0];
+      let title = titleInput.value;
+      let categoryId = categoryIdInput.value;
+
+      if (imageSrc !== undefined && title !== "" && categoryId !== "") {
+        btnValider.style.backgroundColor = "#1D6154";
+        btnValider.style.border = "solid 1px #1D6154";
+      
+      } else {
+        btnValider.style.backgroundColor = "#A7A7A7";
+        btnValider.style.border = "solid 1px #A7A7A7";
+      }
+    }
+
+    imageSrcInput.addEventListener("change", checkInputChanges);
+    titleInput.addEventListener("input", checkInputChanges);
+    categoryIdInput.addEventListener("change", checkInputChanges);
+
+    checkInputChanges();
 
     try {
       let formData = new FormData()
