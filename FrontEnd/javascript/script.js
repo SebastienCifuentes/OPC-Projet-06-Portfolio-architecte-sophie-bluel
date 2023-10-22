@@ -1,4 +1,4 @@
-// On récupère le token
+// On récupère le token depuis le localStorage
 const token = localStorage.getItem('token');
 
 //On récupère la liste des catégories
@@ -15,7 +15,7 @@ const getCategories = async () => {
   }
 };
 
-// Si token stocké, donc login ok
+// Si token stocké, donc utilisateur loggué
 if (token) {
   let updatedThumbnails;
   // On joute la barre admin, on enlève les filtres
@@ -34,7 +34,7 @@ if (token) {
   const modalContainer = document.querySelector('.modal-container');
   const modalTriggers = document.querySelectorAll('.modal-trigger');
 
-  // Affichage des travaux dans la modale
+  // Affichage des vignettes des travaux dans la modale
   function displayThumbnails(works) {
     const thumbnailsModal = document.querySelector('.thumbnailsModal');
     const formModalTwo = document.querySelector('.formModalTwo');
@@ -90,10 +90,11 @@ if (token) {
           }
         ).then((res) => {
           if (res.status) {
+            //Met à jour la liste Works
             updatedThumbnails = works.filter(
               (work) => work.id != trashButton.getAttribute('data-id')
             );
-            displayThumbnails(updatedThumbnails);
+            displayThumbnails(updatedThumbnails); //Mise à jour des vignettes
             displayWorks(updatedThumbnails);
           }
         });
@@ -119,7 +120,7 @@ if (token) {
 
     titleInput.value = "";
 
-    checkInputChanges();
+    checkInputChanges(); //vérification des valeurs des champs du formulaire
     
     //Modif CSS en fonction du message d'erreur
     document.querySelector('.errorMessageCategory').classList.add('hidden');
@@ -147,6 +148,7 @@ if (token) {
     const categories = document.querySelector('#categories');
     categories.innerHTML = '';
 
+    //Catégories pour le menu déroulant
     const allCategories = await getCategories();
     categories.appendChild(document.createElement('option'));
     for (const element of allCategories) {
@@ -156,12 +158,14 @@ if (token) {
       categories.appendChild(categoriesOption);
     }
 
+    //Changement de block pour affichage miniature photo
     const photoMini = document.querySelector('.photoMini');
     if (photoMini) {
       document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
       photoMini.remove();
     }
 
+    //addEventListener sur les champs du form
     imageSrcInput.addEventListener("change", checkInputChanges);
     titleInput.addEventListener("change", checkInputChanges);
     categoryIdInput.addEventListener("change", checkInputChanges);
@@ -179,6 +183,7 @@ if (token) {
     let categoryId = categoryIdInput.value;
     let btnValider = document.getElementById("btnValider");
 
+    //Si tous les champs rempli, alors bouton vert
     if (imageSrc !== undefined && title !== "" && categoryId !== "") {
       btnValider.style.backgroundColor = "#1D6154";
       btnValider.style.border = "solid 1px #1D6154";
@@ -191,6 +196,7 @@ if (token) {
     }
   }
 
+  //Ajout d'un projet
   async function addNewProject() {
 
     let imageSrcInput = document.getElementById("File");
@@ -202,6 +208,7 @@ if (token) {
     let title = titleInput.value;
     let categoryId = categoryIdInput.value;
 
+    //Si un des champs vide, message d'erreur
     if (imageSrc == undefined || title == "" || categoryId == "") {
       document.querySelector('.errorMessageCategory').classList.remove('hidden');
       const errorCatMargin = document.querySelector('.form select');
@@ -209,7 +216,7 @@ if (token) {
       const errorMessageCat = document.querySelector('.errorMessageCategory');
       errorMessageCat.style.paddingBottom = '23px';
       validation = false;
-    } else if (imageSrc.size > 4194304) {
+    } else if (imageSrc.size > 4194304) { //Si image trop grande, alerte
       alert("Veuillez choisir une photo de 4mo max");
       const photoMini = document.querySelector('.photoMini');
       document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
@@ -220,6 +227,7 @@ if (token) {
     
     checkInputChanges();
 
+    //Envoi du nouveau travail
     try {
       let formData = new FormData()
       formData.append("image", imageSrc);
@@ -236,7 +244,6 @@ if (token) {
           body: formData
         })
         if (response.status == 201) {
-          /* toggleModal(); */
           getWorks();
           alert("Projet ajouté avec succès !");
           return;
@@ -257,6 +264,7 @@ if (token) {
       addNewProject()
     })
 
+  //Affichage de la miniature
   function showImageMini(input) {
     let file = input.files[0];
     let reader = new FileReader();
@@ -275,6 +283,7 @@ if (token) {
     };
   }
 
+  //Affichage updaté sur le bouton retour
   backModalButton.addEventListener('click', () => {
     getWorks();
   });
