@@ -174,6 +174,9 @@ if (token) {
       if (imageSrc !== undefined && title !== "" && categoryId !== "") {
         btnValider.style.backgroundColor = "#1D6154";
         btnValider.style.border = "solid 1px #1D6154";
+        document.querySelector('.errorMessageCategory').classList.add('hidden');
+        const errorCatMargin = document.querySelector('.form select');
+        errorCatMargin.style.marginBottom = '63px';
       
       } else {
         btnValider.style.backgroundColor = "#A7A7A7";
