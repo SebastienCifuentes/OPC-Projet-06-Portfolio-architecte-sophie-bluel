@@ -2,16 +2,18 @@
 const token = localStorage.getItem('token');
 
 //On récupère la liste des catégories
-async function getCategories() {
-  let allCategories;
-  await fetch('http://localhost:5678/api/categories')
-    .then((response) => response.json())
-    .then((categories) => (allCategories = categories))
-    .catch((error) => {
-      alert(`Erreur: ` + error);
-    });
-  return allCategories;
-}
+const getCategories = async () => {
+  try {
+    const response = await fetch('http://localhost:5678/api/categories');
+    if (!response.ok) {
+      throw new Error(`Erreur: ${response.status}`);
+    }
+    const categories = await response.json();
+    return categories;
+  } catch (error) {
+    alert(`Erreur: ${error}`);
+  }
+};
 
 // Si token stocké, donc login ok
 if (token) {

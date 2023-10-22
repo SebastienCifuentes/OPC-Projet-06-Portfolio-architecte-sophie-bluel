@@ -1,84 +1,102 @@
-let works;
-let filteredWorks;
+// Déclaration de variables
+let works; // Stocke les données des travaux
+let filteredWorks; // Stocke les travaux filtrés
 
-//Récupération des travaux depuis l'API : fetch GET
+// Déclaration de la fonction displayCategory
+const displayCategory = (categories) => {
+  // Sélectionne l'élément HTML avec la classe 'filters'
+  const sectionFilters = document.querySelector('.filters');
+  // Vide son contenu
+  sectionFilters.innerHTML = '';
+
+  // Fonction pour créer un bouton filtre
+  const createButton = (text, dataId) => {
+    const button = document.createElement('button'); // Crée le bouton
+    button.textContent = text; // Définit le texte du bouton
+    button.setAttribute('data-id', dataId); // Définit l'attribut 'data-id'
+    button.classList.add('btnFilter'); // Ajoute la classe 'btnFilter'
+    sectionFilters.appendChild(button); // Ajoute le bouton à la section 'filters'
+    return button; // Retourne le bouton créé
+  };
+
+  // Crée un bouton "Tous" avec l'ID 0, ajout classe 'activated'
+  const buttonAll = createButton('Tous', 0);
+  buttonAll.classList.add('activated');
+
+  // Fonction pour filtrer les travaux en fonction de la catégorie sélectionnée
+  const filterWorks = (categoryId) => {
+    // Sélectionne tous les boutons de filtre
+    const btnFilters = document.querySelectorAll('.btnFilter');
+    // Supprime la classe 'activated' de tous les boutons de filtre
+    btnFilters.forEach((btn) => btn.classList.remove('activated'));
+    // Filtrer les travaux en fonction de l'ID de catégorie
+    const filteredWorks = works.filter((el) => el.categoryId == categoryId);
+
+    // Si des travaux filtrés sont trouvés, les affiche, sinon affiche tous les travaux
+    if (filteredWorks.length !== 0) {
+      displayWorks(filteredWorks);
+    } else {
+      displayWorks(works);
+    }
+  };
+
+  // Ajoute un addEventListener au bouton "Tous" pour afficher tous les travaux
+  buttonAll.addEventListener('click', () => {
+    filterWorks(0);
+    buttonAll.classList.add('activated'); // Marque le bouton "Tous" comme activé
+  });
+
+  // Boucle sur les catégories, création des boutons pour chaque catégorie
+  categories.forEach((element) => {
+    const buttonCategory = createButton(element.name, element.id);
+    // Ajoute un addEventListener pour chaque bouton de catégorie
+    buttonCategory.addEventListener('click', () => {
+      filterWorks(element.id); // Filtre les travaux en fonction de l'ID de catégorie
+      buttonCategory.classList.add('activated'); // Marque le bouton de catégorie comme activé
+    });
+  });
+};
+
+// Récupération des catégories depuis l'API avec fetch
+fetch('http://localhost:5678/api/categories')
+  .then((response) => response.json()) // Transforme la réponse en JSON
+  .then(displayCategory) // Appelle la fonction displayCategory avec les données des catégories
+  .catch((error) => {
+    alert(`Erreur: ${error}`);
+  });
+
+// Récupération des travaux depuis l'API avec fetch
 fetch('http://localhost:5678/api/works')
-  .then((response) => response.json())
+  .then((response) => response.json()) // Transforme la réponse en JSON
   .then((data) => {
-    works = data;
-    displayWorks(works);
+    works = data; // Stocke les données des travaux dans la variable 'works'
+    displayWorks(works); // Appelle la fonction displayWorks pour afficher les travaux
   })
   .catch((error) => {
-    alert(`Erreur: ` + error);
+    alert(`Erreur: ${error}`);
   });
 
-//Afficher la galerie depuis l'API
-function displayWorks(works) {
-  document.querySelector('.gallery').innerHTML = '';
+// Fonction pour afficher la galerie de travaux
+const displayWorks = (works) => {
+  // Sélectionne l'élément HTML avec la classe 'gallery'
+  const gallery = document.querySelector('.gallery');
+  // Vide son contenu HTML
+  gallery.innerHTML = '';
 
-  for (let i = 0; i < works.length; i++) {
-    const worksIndex = works[i];
-    // Récupération de la section du Dom pour afficher la galerie
-    const sectionGallery = document.querySelector('.gallery');
-    // Création de la balise figure qui affichera les travaux
-    const worksElement = document.createElement('figure');
-    // Création des balises interne qui affichera images et titres
-    const imageElement = document.createElement('img');
-    imageElement.src = worksIndex.imageUrl;
-    imageElement.alt = worksIndex.title;
-    const titleElement = document.createElement('h3');
-    titleElement.innerHTML = worksIndex.title;
-    // Rattachement de la balise figure à la section gallery
-    sectionGallery.appendChild(worksElement);
-    // Rattachement des balises img et h3 à la balise figure
-    worksElement.appendChild(imageElement);
-    worksElement.appendChild(titleElement);
-  }
-}
+  // Boucle sur les travaux et création des éléments HTML pour chaque travail
+  works.forEach((work) => {
+    const { imageUrl, title } = work;
 
-//Récupération des catégories depuis l'API : fetch GET
-fetch('http://localhost:5678/api/categories')
-  .then((response) => response.json())
-  .then((categories) => displayCategory(categories))
-  .catch((error) => {
-    alert(`Erreur: ` + error);
+    const worksElement = document.createElement('figure'); // Crée un élément 'figure'
+    const imageElement = document.createElement('img'); // Crée un élément 'img'
+    imageElement.src = imageUrl; // Définit la source de l'image
+    imageElement.alt = title; // Définit le texte alternatif de l'image
+
+    const titleElement = document.createElement('h3'); // Crée un élément 'h3'
+    titleElement.innerHTML = title; // Définit le contenu HTML du titre
+
+    worksElement.appendChild(imageElement); // Ajoute l'image à l'élément 'figure'
+    worksElement.appendChild(titleElement); // Ajoute le titre à l'élément 'figure'
+    gallery.appendChild(worksElement); // Ajoute l'élément 'figure' à la galerie
   });
-
-function displayCategory(categories) {
-  // Récupération de la section du Dom pour insérer les filtres
-  const sectionFilters = document.querySelector('.filters');
-
-  //Création du button "Tous", puis des button category
-  const buttonAll = document.createElement('button');
-  buttonAll.textContent = 'Tous';
-  buttonAll.setAttribute('data-id', 0);
-  buttonAll.classList.add('btnFilter');
-  buttonAll.classList.add('activated');
-  sectionFilters.appendChild(buttonAll);
-
-  for (const element of categories) {
-    const buttonCategory = document.createElement('button');
-    buttonCategory.textContent = element.name;
-    buttonCategory.setAttribute('data-id', element.id);
-    buttonCategory.classList.add('btnFilter');
-    sectionFilters.appendChild(buttonCategory);
-
-    document.querySelectorAll('.btnFilter').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        document.querySelector('.activated').classList.remove('activated');
-        e.target.classList.add('activated');
-
-        filteredWorks = works.filter(
-          (el) => el.categoryId == btn.getAttribute('data-id')
-        );
-
-        if (filteredWorks.length !== 0) {
-          displayWorks(filteredWorks);
-        } else {
-          displayWorks(works);
-        }
-      });
-    });
-  }
-}
-
+};
