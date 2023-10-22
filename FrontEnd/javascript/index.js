@@ -12,6 +12,7 @@ fetch('http://localhost:5678/api/works')
     alert(`Erreur: ` + error);
   });
 
+//Afficher la galerie depuis l'API
 function displayWorks(works) {
   document.querySelector('.gallery').innerHTML = '';
 
@@ -27,7 +28,6 @@ function displayWorks(works) {
     imageElement.alt = worksIndex.title;
     const titleElement = document.createElement('h3');
     titleElement.innerHTML = worksIndex.title;
-
     // Rattachement de la balise figure à la section gallery
     sectionGallery.appendChild(worksElement);
     // Rattachement des balises img et h3 à la balise figure

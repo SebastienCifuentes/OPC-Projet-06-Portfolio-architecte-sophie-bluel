@@ -1,6 +1,7 @@
 // On récupère le token
 const token = localStorage.getItem('token');
 
+//On récupère la liste des catégories
 async function getCategories() {
   let allCategories;
   await fetch('http://localhost:5678/api/categories')
@@ -31,6 +32,7 @@ if (token) {
   const modalContainer = document.querySelector('.modal-container');
   const modalTriggers = document.querySelectorAll('.modal-trigger');
 
+  // Affichage des travaux dans la modale
   function displayThumbnails(works) {
     const thumbnailsModal = document.querySelector('.thumbnailsModal');
     const formModalTwo = document.querySelector('.formModalTwo');
@@ -39,7 +41,6 @@ if (token) {
     modalTitle.innerHTML = 'Galerie Photo';
     
     addWorksButton.classList.remove('hidden');
-    
     backModalButton.classList.add('hidden');
     thumbnailsModal.classList.remove('hidden');
     formModalTwo.classList.add('hidden');
@@ -72,6 +73,7 @@ if (token) {
       // Rattachement du boutton au form
       worksElement.appendChild(trashButton);
 
+      //Gestion de l'evenement sur le DELETE
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
         fetch(
@@ -101,10 +103,12 @@ if (token) {
   const formModalTwo = document.querySelector('.formModalTwo');
   const addWorksButton = document.querySelector('.addWorksButton');
   const backModalButton = document.querySelector('.back-modal');
+
   addWorksButton.addEventListener('click', () => {
     switchModal2();
   });
 
+  //Ouverture de la modale pour ajout projet
   async function switchModal2() {
 
     let imageSrcInput = document.getElementById("File");
@@ -115,23 +119,32 @@ if (token) {
 
     checkInputChanges();
     
+    //Modif CSS en fonction du message d'erreur
     document.querySelector('.errorMessageCategory').classList.add('hidden');
+
     const errorCatMargin = document.querySelector('.form select');
     errorCatMargin.style.marginBottom = '63px';
+
     const errorPhotoMargin = document.querySelector('.titleLabel');
     errorPhotoMargin.style.marginTop = '30px';
+
     const errorTitleMargin = document.querySelector('.categoriesLabel');
     errorTitleMargin.style.marginTop = '30px';
+
     thumbnailsModal.classList.add('hidden');
     formModalTwo.classList.remove('hidden');
+
     const modalTitle = document.querySelector('.modalTitle');
     modalTitle.innerHTML = 'Ajout Photo';
     
     addWorksButton.classList.add('hidden');
     backModalButton.classList.remove('hidden');
+
     document.querySelector('#title').value = '';
+
     const categories = document.querySelector('#categories');
     categories.innerHTML = '';
+
     const allCategories = await getCategories();
     categories.appendChild(document.createElement('option'));
     for (const element of allCategories) {
@@ -140,6 +153,7 @@ if (token) {
       categoriesOption.setAttribute('value', element.id);
       categories.appendChild(categoriesOption);
     }
+
     const photoMini = document.querySelector('.photoMini');
     if (photoMini) {
       document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
@@ -151,7 +165,7 @@ if (token) {
     categoryIdInput.addEventListener("change", checkInputChanges);
   }
 
-  // Vérif champs remplis ?
+  // Vérification des champs remplis
   function checkInputChanges() {
     
     let imageSrcInput = document.getElementById("File");
@@ -163,15 +177,12 @@ if (token) {
     let categoryId = categoryIdInput.value;
     let btnValider = document.getElementById("btnValider");
 
-    
-
     if (imageSrc !== undefined && title !== "" && categoryId !== "") {
       btnValider.style.backgroundColor = "#1D6154";
       btnValider.style.border = "solid 1px #1D6154";
       document.querySelector('.errorMessageCategory').classList.add('hidden');
       const errorCatMargin = document.querySelector('.form select');
-      errorCatMargin.style.marginBottom = '63px';
-    
+      errorCatMargin.style.marginBottom = '63px';    
     } else {
       btnValider.style.backgroundColor = "#A7A7A7";
       btnValider.style.border = "solid 1px #A7A7A7";
@@ -199,10 +210,8 @@ if (token) {
     } else if (imageSrc.size > 4194304) {
       alert("Veuillez choisir une photo de 4mo max");
       const photoMini = document.querySelector('.photoMini');
-      if (photoMini) {
-        document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
-        photoMini.remove();
-      }
+      document.querySelector('.addPhotoBlockBis').classList.remove('hidden');
+      photoMini.remove();
       imageSrcInput.value = "";
       validation = false;
     }
@@ -214,7 +223,6 @@ if (token) {
       formData.append("image", imageSrc);
       formData.append("title", title);
       formData.append("category", categoryId);
-
 
       if (validation) {
         const token = localStorage.getItem("token");
@@ -239,9 +247,6 @@ if (token) {
     } catch (error) {
       console.log(error)
     }
-
-    
-
   }
 
   const worksForm = document.querySelector('#testForm');
@@ -275,8 +280,6 @@ if (token) {
   const toggleModal = () => {
     modalContainer.classList.toggle('active');
     getWorks();
-
-    //Récupération des travaux depuis l'API : fetch GET
   };
 
   const getWorks = () => {
