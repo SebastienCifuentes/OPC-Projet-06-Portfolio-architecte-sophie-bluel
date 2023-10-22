@@ -206,10 +206,7 @@ if (token) {
       imageSrcInput.value = "";
       validation = false;
     }
-
-    console.log(imageSrc)
     
-
     checkInputChanges();
 
     try {
